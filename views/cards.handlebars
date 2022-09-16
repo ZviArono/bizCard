@@ -1,0 +1,28 @@
+<div class="container">
+    <h1 class="display-3">New Bussiness Card:</h1>
+    <form method="POST" novalidate="novalidate" action="/api/cards">
+        <div class="form-group my-2">
+            <label for="bizName">Business Name:</label>
+            <input type="text" name="bizName" id="bizName" class="form-control">
+        </div>
+        <div class="form-group my-2">
+            <label for="bizDescription">Business Description:</label>
+            <textarea name="bizDescription" id="bizDescription" class="form-control"  rows="3"></textarea></textarea>
+        </div>
+        <div class="form-group my-2">
+            <label for="bizAddress">Business Address:</label>
+            <input type="text" name="bizAddress" id="bizAddress" class="form-control">
+        </div>
+        <div class="form-group my-2">
+            <label for="bizPhone">Business Phone Number:</label>
+            <input type="tel" name="bizPhone" id="bizPhone" class="form-control">
+        </div>
+        <div class="form-group my-2">
+            <label for="bizImage">Business Image:</label>
+            <input type="url" name="bizImage" id="bizImage" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-secondary m-1">Save</button>
+
+    </form>
+    <a href="/login">go to login</a>
+</div>
