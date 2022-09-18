@@ -23,13 +23,12 @@ router.post("/", auth, async (req, res) => {
     let card = new Card(req.body);
     //  create new bizNumber and check to see if bizNumber allready exists
     let bizNumberFlag = true;
-    let newBizNumber;
-    do {
-      newBizNumber = _.random(1, 100000);
+    while (bizNumberFlag) {
+      let newBizNumber = _.random(1, 10000);
       let checkCard = await Card.findOne({ bizNumber: newBizNumber });
       if (!checkCard) bizNumberFlag = false;
-    } while (bizNumberFlag);
-    card.bizNumber = newBizNumber;
+      card.bizNumber = newBizNumber;
+    }
     card.userId = req.payload._id;
     // save card
     await card.save();
