@@ -39,6 +39,16 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
+// find all cards for userID
+router.get("/myCards", auth, async (req, res) => {
+  try {
+    let cards = await Card.find({ userId: req.payload._id });
+    res.status(200).send(cards);
+  } catch (error) {
+    res.status(400).send("Error in Card " + error);
+  }
+});
+
 // find card by id
 router.get("/:id", auth, async (req, res) => {
   try {
@@ -73,16 +83,6 @@ router.delete("/:id", auth, async (req, res) => {
     let card = await Card.findByIdAndRemove(req.params.id);
     if (!card) return res.status(404).send("No Card found");
     res.status(200).send("Card Deleted Successfully");
-  } catch (error) {
-    res.status(400).send("Error in Card " + error);
-  }
-});
-
-// find all cards for userID
-router.get("/myCards", auth, async (req, res) => {
-  try {
-    let cards = await Card.find({ userId: req.payload._id });
-    res.status(200).send(cards);
   } catch (error) {
     res.status(400).send("Error in Card " + error);
   }
