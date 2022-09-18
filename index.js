@@ -11,13 +11,11 @@ const login = require("./routes/login");
 const register = require("./routes/register");
 const profile = require("./routes/profile");
 const cards = require("./routes/cards");
-const myCards = require("./routes/myCards");
 
 app.use("/api/login", login);
 app.use("/api/register", register);
 app.use("/api/profile", profile);
 app.use("/api/cards", cards);
-app.use("/api/myCards", myCards);
 app.use(cors());
 
 mongoose

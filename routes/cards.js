@@ -21,7 +21,15 @@ router.post("/", auth, async (req, res) => {
     if (error) return res.status(400).send(error.message);
     // add new card
     let card = new Card(req.body);
-    card.bizNumber = _.random(1, 100000);
+    //  create new bizNumber and check to see if bizNumber allready exists
+    let bizNumberFlag = true;
+    let newBizNumber;
+    do {
+      newBizNumber = _.random(1, 100000);
+      let checkCard = await Card.findOne({ bizNumber: newBizNumber });
+      if (!checkCard) bizNumberFlag = false;
+    } while (bizNumberFlag);
+    card.bizNumber = newBizNumber;
     card.userId = req.payload._id;
     // save card
     await card.save();
@@ -65,6 +73,16 @@ router.delete("/:id", auth, async (req, res) => {
     let card = await Card.findByIdAndRemove(req.params.id);
     if (!card) return res.status(404).send("No Card found");
     res.status(200).send("Card Deleted Successfully");
+  } catch (error) {
+    res.status(400).send("Error in Card " + error);
+  }
+});
+
+// find all cards for userID
+router.get("/myCards", auth, async (req, res) => {
+  try {
+    let cards = await Card.find({ userId: req.payload._id });
+    res.status(200).send(cards);
   } catch (error) {
     res.status(400).send("Error in Card " + error);
   }

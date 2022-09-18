@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
   biz: {
     type: Boolean,
     required: true,
-    default: false,
   },
 });
 
